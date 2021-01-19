@@ -27,6 +27,15 @@
  * - 
  *     
  */
+class Personaje {
+    constructor(name, race, hp, stats){
+        this.name = name,
+        this.race = race,
+        this.hp = hp,
+        this.stats = stats
+        this.xp = 0
+    }
+}
 
 let caracteristicas = {
     fuerza: 12,
@@ -36,16 +45,43 @@ let caracteristicas = {
 }
 
 // 1. Crear Clerigo
+class Clerigo extends Personaje{
+    constructor(name, race, hp, stats){
+        super(name, race, hp, stats)
+        this.stats.fuerza = stats.fuerza - 1
+        this.stats.inteligencia = stats.inteligencia + 1
+    }
+
+    curar(character){
+        if(!character){
+            this.hp = this.hp + this.stats.inteligencia
+        } else {
+            character.hp = character.hp + character.stats.inteligencia
+        }
+    }
+}
 let personaje = new Clerigo('Arod', 'Elfo', 150, caracteristicas)
-console.log(personaje)
+// console.log(personaje)
 
 // 2. Simulamos que sufre daño y se cura
-personaje.vida -= 50
+personaje.hp -= 50
 console.log("Sufre 50 puntos de daño:", personaje)
 personaje.curar()
 console.log("Después de curarse:", personaje)
 
 // 3. Creamos ahora un guerrero
+class Guerrero extends Personaje{
+    constructor(name, race, hp, stats){
+        super(name, race, hp, stats)
+        this.stats.fuerza = stats.fuerza + 1
+        this.stats.inteligencia = stats.inteligencia - 1
+    }
+
+    mamporro(){
+        let golpe = this.stats.fuerza
+        return golpe
+    }
+}
 let stats_warrior = {
     fuerza: 15,
     agilidad: 11,
@@ -57,13 +93,13 @@ let guerrero = new Guerrero('Casey', 'Humano', 180, stats_warrior)
 console.log("Guerrero", guerrero)
 
 // 4. Casey da un mamporrazo a un supuesto enemigo
-guerrero.mamporro()
+console.log('Guerrero asesta mamporro con ' + guerrero.mamporro() + ' daño')
 
 // 5. Casey recibe daño y el clérigo le cura
-guerrero.vida -= 50
+guerrero.hp -= 50
 console.log("Guerrero ha recibido 50 puntos de daño: ", guerrero)
 personaje.curar(guerrero)
 console.log("El Clérigo le ha curado: ", guerrero)
 
 //6. Este método debería dar un error al invocarlo, pues los clérigos no pueden dar mamporros
- personaje.mamporro()
+//  personaje.mamporro() -- Funciona

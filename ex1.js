@@ -25,7 +25,13 @@
 
 
 class Personaje {
-
+    constructor(name, race, hp, stats){
+        this.name = name,
+        this.race = race,
+        this.hp = hp,
+        this.stats = stats
+        this.xp = 0
+    }
 }
 
 let caracteristicas = {
@@ -35,4 +41,4 @@ let caracteristicas = {
     inteligencia: 17
 }
 let personajeGenerico = new Personaje('Arod', 'Elfo', 150, caracteristicas)
-console.log(caracteristicas)
+console.log(personajeGenerico)
